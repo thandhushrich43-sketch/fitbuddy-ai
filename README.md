@@ -152,3 +152,4 @@ python test_app.py
 - `GET /nutrition-tip` — Tests REST API Gemini Flash nutrition tip generation.
 - `GET /api/users` — Tests REST API database querying.
 "# fitbuddy-ai" 
+"# fitbuddy-ai" 
