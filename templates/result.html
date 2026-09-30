@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Personalized Workout Plan - FitBuddy</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="/" class="brand">
+      🏋️‍♂️ Fit<span>Buddy</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/view-all-users" class="nav-link">Admin Dashboard</a>
+      <a href="/docs" target="_blank" class="nav-link">API Docs</a>
+    </div>
+  </nav>
+
+  <!-- Page Container -->
+  <main class="page-container">
+    <div class="glass-card glass-card-wide">
+
+      <!-- Success Alert Banner if Feedback Submitted -->
+      {% if feedback_message %}
+      <div class="alert-success" id="feedback-alert">
+        <span>✅</span>
+        <span>{{ feedback_message }}</span>
+      </div>
+      {% endif %}
+
+      <h1 class="card-title">🏋️‍♂️ Your Personalized Workout Plan</h1>
+      <p class="card-subtitle">Engineered by Google Gemini AI tailored specifically to your goals and physiology.</p>
+
+      <!-- User Information Box -->
+      <section class="section-block">
+        <h2 class="section-heading">👤 User Information</h2>
+        <div class="user-info-grid">
+          <div class="info-item">
+            <span class="info-label">Name</span>
+            <span class="info-val">{{ username }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">User ID</span>
+            <span class="info-val">#{{ user_id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Age</span>
+            <span class="info-val">{{ age }} yrs</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Weight</span>
+            <span class="info-val">{{ weight }} kg</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Fitness Goal</span>
+            <span class="info-val">{{ goal }}</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Selected Intensity</span>
+            <span class="info-val">
+              <span class="badge {% if intensity|lower == 'high' %}badge-high{% elif intensity|lower == 'medium' %}badge-medium{% else %}badge-low{% endif %}">
+                {{ intensity }}
+              </span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7-Day Workout Plan Section -->
+      <section class="section-block">
+        <h2 class="section-heading">📅 7-Day Workout Routine</h2>
+        <pre class="plan-content">{{ workout_plan }}</pre>
+      </section>
+
+      <!-- Nutrition Tip Section -->
+      <section class="section-block">
+        <div class="tip-card">
+          <div class="tip-title">
+            <span>💡</span> Nutrition &amp; Recovery Tip
+          </div>
+          <p class="tip-body">{{ nutrition_tip }}</p>
+        </div>
+      </section>
+
+      <!-- Feedback / Dynamic Refinement Section -->
+      <section class="section-block">
+        <div class="feedback-box">
+          <h2 class="section-heading" style="border-bottom: none; margin-bottom: 0.2rem;">
+            <span>📝</span> Share Your Feedback
+          </h2>
+          <p class="card-subtitle" style="text-align: left; margin-bottom: 1.2rem;">
+            Want to tweak your routine? Add yoga, focus more on core, or adjust rest days. Our AI will instantly refine your plan!
+          </p>
+
+          <form action="/submit-feedback" method="POST" id="feedback-form">
+            <div class="form-group">
+              <label for="feedback_user_id" class="form-label">Your Unique User ID:</label>
+              <input 
+                type="number" 
+                id="feedback_user_id" 
+                name="user_id" 
+                class="form-input" 
+                value="{{ user_id }}" 
+                placeholder="Enter your User ID" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="feedback" class="form-label">Your Feedback / Requested Changes:</label>
+              <textarea 
+                id="feedback" 
+                name="feedback" 
+                rows="3" 
+                class="form-textarea" 
+                placeholder="Let us know how we can improve your plan (e.g. 'Add 15 minutes of cardio on Day 3', 'Include more rest days')..." 
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" id="submit-feedback-btn" class="btn-primary" style="margin-top: 0.5rem;">
+              <span>🔄 Submit Feedback &amp; Update Plan</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Quick Actions -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <a href="/" class="btn-secondary">
+          ⬅ Back to Plan Generator
+        </a>
+        <a href="/view-all-users" class="btn-secondary" style="background-color: #2563eb;">
+          👥 View All Users Dashboard
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>FitBuddy &copy; 2026 • AI Fitness Plan Generator powered by Google Gemini Models</p>
+  </footer>
+
+</body>
+</html>
